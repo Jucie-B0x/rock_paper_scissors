@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+        //init array for random value
+        const rps_Array = ["rock", "paper", "scissors"];
+        let playerSelection;
+        let computerSelection;
+        let playerPoints = 0;
+        let computerPoints = 0;
+        //generate r/p/s at random
+        function getComputerSelection() {
+            //put ran value into ranVar
+            computerSelection = Math.floor(Math.random() * rps_Array.length);
+            //displays a random rock/paper/scissors choice
+            computerSelection = rps_Array[computerSelection];
+            return computerSelection;
+        }
+        //get input from user
+        function getPlayerSelection() {
+            //put input into userVar
+            playerSelection = prompt("Enter rock, paper, or scissors");
+            return playerSelection;
+        }
+        //compare userVar to ranVar
+
+
+
+        function game() {
+
+            for (let i = 0; i < 5; i++) {
+                playerSelection = getPlayerSelection().toLowerCase();
+                console.log(playerSelection);
+                computerSelection = getComputerSelection();
+                console.log(computerSelection);
+                gameRound(computerSelection, playerSelection);
+            }
+            if (playerPoints >= computerPoints) {
+                alert("Congratulations! You beat the computer " + playerPoints + " to " + computerPoints)
+            } else { 
+                alert("Too bad! The computer beat you  " + computerPoints + " to " + playerPoints) }
+        }
+
+        function gameRound() {
+            if (computerSelection === playerSelection) {
+                alert("It's a tie! Play again.");
+            } else {
+                switch (computerSelection) {
+                    case 'rock':
+                        switch (playerSelection) {
+                            case 'paper':
+                                alert("You win! " + playerSelection + " beats " + computerSelection);
+                                playerPoints++;
+                                break;
+                            case 'scissors':
+                                alert("You lose! " + computerSelection + " beats " + playerSelection);
+                                computerPoints++;
+                                break;
+
+                        }
+                        break;
+                    case 'paper':
+                        switch (playerSelection) {
+                            case 'rock':
+                                alert("You lose! " + computerSelection + " beats " + playerSelection);
+                                computerPoints++;
+                                break;
+                            case 'scissors':
+                                alert("You win! " + playerSelection + " beats " + computerSelection);
+                                playerPoints++
+                                break;
+                        }
+                        break;
+                    case 'scissors':
+                        switch (playerSelection) {
+                            case 'rock':
+                                alert("You win! " + playerSelection + " beats " + computerSelection);
+                                playerPoints++
+                                break;
+                            case 'paper':
+                                alert("You lose! " + computerSelection + " beats " + playerSelection);
+                                computerPoints++
+                                break;
+                        }
+
+
+                }
+            }
+
+
+        }
+
+        game();
+        //init var for user input
+        //keep track of number of games played
+        //report win or loss
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
