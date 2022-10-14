@@ -42,10 +42,11 @@
             for (let i = 0; i < 5; i++) {
                 playerSelection = getPlayerSelection().toLowerCase();
                 console.log(playerSelection);
-                if (playerSelection === "") {
-                    alert('Please enter a selection');
+                if (playerSelection === "" || !rps_Array.includes(playerSelection)) {
+                    alert('Please enter a valid selection');
                     i--;
                 }
+                
                 computerSelection = getComputerSelection();
                 console.log(computerSelection);
                 gameRound(computerSelection, playerSelection);
