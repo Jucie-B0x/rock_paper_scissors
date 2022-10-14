@@ -33,7 +33,7 @@
             playerSelection = prompt("Enter rock, paper, or scissors");
             return playerSelection;
         }
-        //compare userVar to ranVar
+      
 
 
 
@@ -42,6 +42,10 @@
             for (let i = 0; i < 5; i++) {
                 playerSelection = getPlayerSelection().toLowerCase();
                 console.log(playerSelection);
+                if (playerSelection === "") {
+                    alert('Please enter a selection');
+                    i--;
+                }
                 computerSelection = getComputerSelection();
                 console.log(computerSelection);
                 gameRound(computerSelection, playerSelection);
@@ -102,9 +106,7 @@
         }
 
         game();
-        //init var for user input
-        //keep track of number of games played
-        //report win or loss
+   
 
 
 
