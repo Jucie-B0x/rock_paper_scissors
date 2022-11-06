@@ -10,9 +10,15 @@
 
 <body>
 
+    <div id='container'>
+        <div id='results'></div>
 
-
+        <button id='rock'>Rock</button>
+        <button id='paper'>Paper</button>
+        <button id='scissors'>Scissors</button>
+    </div>
     <script>
+
         //init array for random value
         const rps_Array = ["rock", "paper", "scissors"];
         let playerSelection;
@@ -27,49 +33,63 @@
             computerSelection = rps_Array[computerSelection];
             return computerSelection;
         }
-        //get input from user
-        function getPlayerSelection() {
-            //put input into userVar
-            playerSelection = prompt("Enter rock, paper, or scissors");
-            return playerSelection;
-        }
-      
+
+        //event listeners
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+            button.addEventListener('click', function (e) {
+                playerSelection = e.target.id;
+                game();
+            });
+        });
+
+
+
+
+
 
 
 
         function game() {
 
-            for (let i = 0; i < 5; i++) {
-                playerSelection = getPlayerSelection().toLowerCase();
-                console.log(playerSelection);
-                if (playerSelection === "" || !rps_Array.includes(playerSelection)) {
-                    alert('Please enter a valid selection');
-                    i--;
-                }
-                
-                computerSelection = getComputerSelection();
-                console.log(computerSelection);
-                gameRound(computerSelection, playerSelection);
-            }
-            if (playerPoints >= computerPoints) {
-                alert("Congratulations! You beat the computer " + playerPoints + " to " + computerPoints)
-            } else { 
-                alert("Too bad! The computer beat you  " + computerPoints + " to " + playerPoints) }
+
+            computerSelection = getComputerSelection();
+            console.log("The computer selected " + computerSelection);
+            gameRound(computerSelection, playerSelection);
+           
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach((button) => {
+                button.addEventListener('click', function (e) {
+                    const header = document.querySelector('h3')
+                    container.removeChild(header);
+                });
+
+        });
         }
 
         function gameRound() {
+            const container = document.querySelector('#container');
+            const results = document.createElement('h3');
             if (computerSelection === playerSelection) {
-                alert("It's a tie! Play again.");
+                results.textContent = "It's a tie! Play again.";
+                container.appendChild(results);
             } else {
+
                 switch (computerSelection) {
                     case 'rock':
                         switch (playerSelection) {
                             case 'paper':
-                                alert("You win! " + playerSelection + " beats " + computerSelection);
+
+
+                                results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+                                container.appendChild(results);
+
                                 playerPoints++;
                                 break;
                             case 'scissors':
-                                alert("You lose! " + computerSelection + " beats " + playerSelection);
+                                results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
+                                container.appendChild(results);
+
                                 computerPoints++;
                                 break;
 
@@ -78,11 +98,13 @@
                     case 'paper':
                         switch (playerSelection) {
                             case 'rock':
-                                alert("You lose! " + computerSelection + " beats " + playerSelection);
+                                results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
+                                container.appendChild(results);
                                 computerPoints++;
                                 break;
                             case 'scissors':
-                                alert("You win! " + playerSelection + " beats " + computerSelection);
+                                results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+                                container.appendChild(results);
                                 playerPoints++
                                 break;
                         }
@@ -90,24 +112,31 @@
                     case 'scissors':
                         switch (playerSelection) {
                             case 'rock':
-                                alert("You win! " + playerSelection + " beats " + computerSelection);
+                                results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+                                container.appendChild(results);
                                 playerPoints++
                                 break;
                             case 'paper':
-                                alert("You lose! " + computerSelection + " beats " + playerSelection);
+                                results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
+                                container.appendChild(results);
                                 computerPoints++
                                 break;
                         }
 
 
-                }
-            }
 
+                }
+
+
+
+            }
 
         }
 
-        game();
-   
+
+
+
+
 
 
 
