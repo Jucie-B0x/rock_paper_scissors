@@ -11,23 +11,25 @@
 <body>
 
     <div id='container'>
+        <h1 id = 'scoreBoard'></h1>
         <div id='results'></div>
-
+        <div id = 'buttons'>
         <button id='rock'>Rock</button>
         <button id='paper'>Paper</button>
         <button id='scissors'>Scissors</button>
     </div>
+</div>
     <script>
 
         //init array for random value
         const rps_Array = ["rock", "paper", "scissors"];
         let playerSelection;
         let computerSelection;
-        let playerPoints = 0;
-        let computerPoints = 0;
+        let playerPoints = 4;
+        let computerPoints = 4;
         //generate r/p/s at random
         function getComputerSelection() {
-            //put ran value into ranVar
+            //put random value into ranVar
             computerSelection = Math.floor(Math.random() * rps_Array.length);
             //displays a random rock/paper/scissors choice
             computerSelection = rps_Array[computerSelection];
@@ -45,52 +47,72 @@
 
 
 
+        const results = document.querySelector('#results');
+        const victor = document.createElement('h2');
 
+        function winner () {
+            victor.textContent = "You win! " + playerSelection + " beats " + computerSelection;
+            results.appendChild(victor);
+             return playerPoints++;
+             
+        }
 
+        function loser () {
+            victor.textContent = "You lost! " + computerSelection + " beats " + playerSelection;
+            results.appendChild(victor);
+            return computerPoints++;
+            
 
+        }
 
+        
 
         function game() {
-
 
             computerSelection = getComputerSelection();
             console.log("The computer selected " + computerSelection);
             gameRound(computerSelection, playerSelection);
-           
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach((button) => {
-                button.addEventListener('click', function (e) {
-                    const header = document.querySelector('h3')
-                    container.removeChild(header);
-                });
+            const score = document.querySelector('#scoreBoard');
+            score.textContent = `The Score is ${playerPoints} vs ${computerPoints}!`
 
-        });
+            if(playerPoints > 4) {
+                score.textContent = 'You are the best rocker, paperer, scissorer there ever was!';
+                gameOver();
+              
+            } else if(computerPoints > 4) {
+                score.textContent = 'You might want to practice some more';
+                gameOver();
+                
+            }
+           
+        }
+
+        function gameOver () {
+            playerPoints = 0;
+            computerPoints = 0;
+           victor.textContent = "Do you want to play again?"
+           
         }
 
         function gameRound() {
-            const container = document.querySelector('#container');
-            const results = document.createElement('h3');
+        
             if (computerSelection === playerSelection) {
-                results.textContent = "It's a tie! Play again.";
-                container.appendChild(results);
+                victor.textContent = "It's a tie! Play again.";
+                results.appendChild(victor);
             } else {
 
                 switch (computerSelection) {
                     case 'rock':
                         switch (playerSelection) {
                             case 'paper':
+                                
+                                winner();
 
-
-                                results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
-                                container.appendChild(results);
-
-                                playerPoints++;
                                 break;
                             case 'scissors':
-                                results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
-                                container.appendChild(results);
+                             
+                                loser();
 
-                                computerPoints++;
                                 break;
 
                         }
@@ -98,28 +120,28 @@
                     case 'paper':
                         switch (playerSelection) {
                             case 'rock':
-                                results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
-                                container.appendChild(results);
-                                computerPoints++;
+
+                                loser();
+
                                 break;
                             case 'scissors':
-                                results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
-                                container.appendChild(results);
-                                playerPoints++
+                                
+                                winner();
+
                                 break;
                         }
                         break;
                     case 'scissors':
                         switch (playerSelection) {
                             case 'rock':
-                                results.textContent = "You win! " + playerSelection + " beats " + computerSelection;
-                                container.appendChild(results);
-                                playerPoints++
+                               
+                                winner();
+
                                 break;
                             case 'paper':
-                                results.textContent = "You lose! " + computerSelection + " beats " + playerSelection;
-                                container.appendChild(results);
-                                computerPoints++
+                                
+                                loser();
+
                                 break;
                         }
 
